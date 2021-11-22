@@ -32,7 +32,7 @@ public class UserVO {
 	public User convertToUser() {
 		 User user = new User();
 		 user.setId(id);
-		 user.setDisabled(disabled);
+		 user.setEnabled(false);
 		 user.setEmail(email);
 		 user.setLocked(locked);
 		 user.setLoginAttempts(loginAttempts);

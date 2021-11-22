@@ -17,6 +17,9 @@
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
+		<passay.version>1.0</passay.version>
+		<javax.el.version>2.2</javax.el.version>
+		<aerogear.version>1.0.0</aerogear.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -102,6 +105,42 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- 2fa -->
+			<dependency>
+				<groupId>org.jboss.aerogear</groupId>
+				<artifactId>aerogear-otp-java</artifactId>
+				<version>${aerogear.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>${javax.el.version}</version>
+		</dependency>
+
+		<!-- Password Validation -->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>${passay.version}</version>
+		</dependency>
+
+		<!--
+		User Agent parser
+		<dependency>
+			<groupId>com.github.ua-parser</groupId>
+			<artifactId>uap-java</artifactId>
+			<version>${uap-java.version}</version>
+		</dependency>
+		-->
+		<!-- maxmind dependency -->
+		<!-- <dependency>
+			<groupId>com.maxmind.geoip2</groupId>
+			<artifactId>geoip2</artifactId>
+			<version>${geoip2.version}</version>
+		</dependency>
+		-->
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -112,10 +151,25 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<!-- Surefire Report Dependency -->
+
+			<dependency>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<type>maven-plugin</type>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
+		<finalName>Fashion-with-Us</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -142,6 +196,19 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*IntegrationTest.java</exclude>
+						<exclude>**/*LiveTest.java</exclude>
+					</excludes>
+					<systemPropertyVariables>
+						<!-- <provPersistenceTarget>h2</provPersistenceTarget> -->
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

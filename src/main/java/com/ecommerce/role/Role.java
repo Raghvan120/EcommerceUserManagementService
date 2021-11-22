@@ -34,7 +34,7 @@ public class Role implements Serializable {
 	private String roleName;
 	private boolean isActive;
 
-	@OneToMany(mappedBy = "role", cascade = {CascadeType.MERGE}, orphanRemoval = true)
+	@OneToMany(mappedBy = "roles", cascade = {CascadeType.MERGE}, orphanRemoval = true)
 	private Set<User> userSet = new HashSet<>();
 	
 	public RoleVO convertToRoleVO() {

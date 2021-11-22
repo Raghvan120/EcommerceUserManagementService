@@ -28,7 +28,7 @@ public class UserService implements IUserService {
 		Role role = this.roleRepository.findById(userVO.getRoleVO().getId()).orElseThrow(() -> new ResourceNotFound("Role Not found"));
 		User user = userVO.convertToUser();
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
-		user.addRole(role);
+		user.getRoles();
 		return this.userRepository.save(user).convertToUserVO();
 	}
 
